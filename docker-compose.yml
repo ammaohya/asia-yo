@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+    nginx:
+        container_name: asia_yo_nginx
+        image: nginx:alpine
+        ports:
+            - 80:80
+        depends_on:
+            - php
+        volumes:
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - ./docker/nginx/phpunit_coverage.conf:/etc/nginx/conf.d/phpunit_coverage.conf
+            - .:/var/www
+    php:
+        container_name: asia_yo_php
+        build: docker/php
+        volumes:
+            - .:/var/www
